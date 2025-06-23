@@ -23,8 +23,18 @@ Este es el **frontend** de la landing page de Pixel Studio, una página moderna,
 ## 🚀 Pasos para correr el frontend
 
 ### 1. Clonar el repositorio
-
 ```bash
-git clone https://github.com/tu-usuario/PixelStudio.git
-
-cd PixelStudio
+git clone https://github.com/NolbertoChagala/Frontend-Pixel.git
+```
+## 2.- Entras a la carpeta correspondiente
+```bash
+cd Frontend-Pixel
+```
+## 3.- Instalas todas las dependencias del proyecto
+```bash
+npm install
+```
+## 4.- Inicializas el proyecto
+```bash
+npm run dev
+```
