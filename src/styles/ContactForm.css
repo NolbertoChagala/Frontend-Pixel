@@ -1,0 +1,246 @@
+/* Estilos generales para el formulario de contacto */
+.contact-form-section {
+  background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+  padding: 6rem 2rem;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto de partículas en el fondo */
+.contact-form-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="rgba(255,77,77,0.2)"/><circle cx="90" cy="90" r="1" fill="rgba(255,77,77,0.2)"/><circle cx="50" cy="20" r="1" fill="rgba(255,77,77,0.2)"/><circle cx="80" cy="50" r="1" fill="rgba(255,77,77,0.2)"/></svg>');
+  background-size: 200px;
+  opacity: 0.15;
+  animation: float 20s linear infinite;
+}
+
+/* Título de la sección (si se agrega en JSX) */
+.contact-form-section h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
+  position: relative;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: fadeInDown 1s ease-out;
+}
+
+.contact-form-section h2::after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 5px;
+  background: linear-gradient(90deg, #ff4d4d, #ff7878);
+  margin: 1rem auto;
+  border-radius: 2px;
+}
+
+/* Estilos del formulario */
+form {
+  max-width: 540px; /* antes 700px */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem 1.8rem; /* antes 2.5rem */
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: fadeInUp 1s ease-out;
+  border: 1px solid rgba(255, 77, 77, 0.1);
+}
+
+
+/* Campos de entrada */
+input, textarea {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1rem;
+  padding: 1.2rem;
+  border: none;
+  border-bottom: 2px solid #ff4d4d;
+  background: transparent;
+  color: #1a1a2e;
+  transition: border-bottom-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-bottom-color: #ff7878;
+  box-shadow: 0 4px 10px rgba(255, 77, 77, 0.2);
+}
+
+/* Placeholder */
+input::placeholder, textarea::placeholder {
+  color: #666666;
+  opacity: 0.7;
+}
+
+/* Textarea específica */
+textarea {
+  resize: vertical;
+  min-height: 140px;
+  border: 2px solid #ff4d4d;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* Botón de enviar */
+button {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 1.2rem 2.5rem;
+  background: linear-gradient(90deg, #ff4d4d, #ff7878);
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(255, 77, 77, 0.5);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Mensaje de éxito */
+.success {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3rem;
+  color: #ffffff;
+  background: linear-gradient(90deg, #ff4d4d, #ff7878);
+  padding: 1.2rem;
+  border-radius: 12px;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  box-shadow: 0 6px 20px rgba(255, 77, 77, 0.3);
+  animation: fadeInUp 0.5s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Animaciones */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(20px, 20px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .contact-form-section h2 {
+    font-size: 2.4rem;
+  }
+
+  form {
+    max-width: 90%;
+    padding: 2rem;
+  }
+
+  input, textarea {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  button {
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+  }
+
+  .success {
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-form-section {
+    padding: 4rem 1rem;
+  }
+
+  .contact-form-section h2 {
+    font-size: 2rem;
+  }
+
+  form {
+    padding: 1.5rem;
+  }
+
+  input, textarea {
+    font-size: 0.95rem;
+    padding: 0.8rem;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  .success {
+    font-size: 1rem;
+    padding: 0.8rem;
+  }
+}
