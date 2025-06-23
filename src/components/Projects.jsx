@@ -5,7 +5,7 @@ import Artesanal from '../img/Projects/Artesanal.jpg';
 
 export default function Projects() {
   return (
-    <section className="projects-section">
+    <section id="projects" className="projects-section">
       <h2>Proyectos Destacados</h2>
       <div className="projects-grid">
         <div className="project-card">

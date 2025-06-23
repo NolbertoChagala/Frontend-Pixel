@@ -4,7 +4,7 @@ import Luis from '../img/People/Luis.jpg';
 
 export default function Testimonials() {
   return (
-    <section className="testimonials-section">
+    <section id="testimonials" className="testimonials-section">
       <h2>Testimonios</h2>
       <div className="testimonial">
         <img
