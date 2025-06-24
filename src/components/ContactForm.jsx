@@ -2,66 +2,40 @@ import { useState } from "react";
 import { sendContactForm } from "../services/api";
 import "../styles/ContactForm.css";
 
-// Validaciones
-const isValidName = (name) => /^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]{3,}$/.test(name);
-const isValidPhone = (phone) => /^\d{10,15}$/.test(phone);
-const isValidMessage = (msg) => msg.trim().length >= 10;
-
 export default function ContactForm() {
   const [form, setForm] = useState({
     Nombre_Completo: "",
     Correo_Electronico: "",
     Telefono: "",
     Mensaje: "",
+    aceptado: false,
   });
 
-  const [submitted, setSubmitted] = useState(false);
-
   const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!isValidName(form.Nombre_Completo)) {
-      alert("Nombre inválido. Solo letras y mínimo 3 caracteres.");
-      return;
-    }
-
-    if (!isValidPhone(form.Telefono)) {
-      alert("Teléfono inválido. Debe tener entre 10 y 15 dígitos numéricos.");
-      return;
-    }
-
-    if (!isValidMessage(form.Mensaje)) {
-      alert("El mensaje debe tener al menos 10 caracteres.");
-      return;
-    }
-
-    try {
-      await sendContactForm(form);
-      setSubmitted(true);
-      setForm({
-        Nombre_Completo: "",
-        Correo_Electronico: "",
-        Telefono: "",
-        Mensaje: "",
-      });
-
-      setTimeout(() => setSubmitted(false), 4000);
-    } catch (error) {
-      console.error("Error al enviar el formulario", error);
-    }
+    // Aquí puedes añadir la lógica que quieras para enviar el formulario
+    await sendContactForm(form);
+    // Reiniciar formulario si quieres
+    setForm({
+      Nombre_Completo: "",
+      Correo_Electronico: "",
+      Telefono: "",
+      Mensaje: "",
+      aceptado: false,
+    });
   };
 
   return (
     <section id="contact-section" className="contact-form-section">
       <h2>Contáctanos</h2>
-      {submitted && <p className="success">Mensaje enviado correctamente</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -95,6 +69,22 @@ export default function ContactForm() {
           onChange={handleChange}
           required
         />
+
+        <label className="checkbox-label">
+          <input
+            type="checkbox"
+            name="aceptado"
+            checked={form.aceptado}
+            onChange={handleChange}
+            required
+          />
+          <span style={{ color: "black" }}>He leído y acepto el </span>
+          <a href="Aviso" target="_blank" rel="noopener noreferrer">
+            Aviso de Privacidad
+          </a>
+          .
+        </label>
+
         <button type="submit">Enviar</button>
       </form>
     </section>

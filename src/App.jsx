@@ -1,4 +1,6 @@
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import ContactForm from './components/ContactForm';
 import Header from './components/Header';
 import Services from './components/Services';
@@ -7,11 +9,10 @@ import Projects from './components/Projects';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
-// import './styles/App.css';
+import Aviso from './view/Aviso';
 
-
-function App() {
- return (
+function Home() {
+  return (
     <div className="landing">
       <Navbar />
       <Header />
@@ -19,10 +20,21 @@ function App() {
       <About />
       <Projects />
       <Testimonials />
-        <ContactForm />
+      <ContactForm />
       <Footer />
     </div>
   );
 }
 
-export default App
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/aviso" element={<Aviso />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
