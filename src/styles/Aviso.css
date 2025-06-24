@@ -1,0 +1,37 @@
+.aviso-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 24px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  color: #333;
+  font-family: Arial, sans-serif;
+}
+
+.aviso-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.aviso-subtitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+.aviso-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
+.aviso-footer {
+  font-size: 0.875rem;
+  color: #666;
+  text-align: right;
+  margin-top: 32px;
+}
