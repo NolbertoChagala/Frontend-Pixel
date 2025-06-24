@@ -1,13 +1,18 @@
-import { useState } from 'react';
-import { sendContactForm } from '../services/api';
-import '../styles/ContactForm.css';
+import { useState } from "react";
+import { sendContactForm } from "../services/api";
+import "../styles/ContactForm.css";
+
+// Validaciones
+const isValidName = (name) => /^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]{3,}$/.test(name);
+const isValidPhone = (phone) => /^\d{10,15}$/.test(phone);
+const isValidMessage = (msg) => msg.trim().length >= 10;
 
 export default function ContactForm() {
   const [form, setForm] = useState({
-    Nombre_Completo: '',
-    Correo_Electronico: '',
-    Telefono: '',
-    Mensaje: ''
+    Nombre_Completo: "",
+    Correo_Electronico: "",
+    Telefono: "",
+    Mensaje: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -15,28 +20,46 @@ export default function ContactForm() {
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isValidName(form.Nombre_Completo)) {
+      alert("Nombre inválido. Solo letras y mínimo 3 caracteres.");
+      return;
+    }
+
+    if (!isValidPhone(form.Telefono)) {
+      alert("Teléfono inválido. Debe tener entre 10 y 15 dígitos numéricos.");
+      return;
+    }
+
+    if (!isValidMessage(form.Mensaje)) {
+      alert("El mensaje debe tener al menos 10 caracteres.");
+      return;
+    }
+
     try {
       await sendContactForm(form);
       setSubmitted(true);
-      setForm({ Nombre_Completo: '', Correo_Electronico: '', Telefono: '', Mensaje: '' });
+      setForm({
+        Nombre_Completo: "",
+        Correo_Electronico: "",
+        Telefono: "",
+        Mensaje: "",
+      });
 
-      // 🕒 Ocultar el mensaje después de 4 segundos
-      setTimeout(() => {
-        setSubmitted(false);
-      }, 4000);
+      setTimeout(() => setSubmitted(false), 4000);
     } catch (error) {
       console.error("Error al enviar el formulario", error);
     }
   };
 
   return (
-    <section id='contact-section' className="contact-form-section">
+    <section id="contact-section" className="contact-form-section">
       <h2>Contáctanos</h2>
       {submitted && <p className="success">Mensaje enviado correctamente</p>}
       <form onSubmit={handleSubmit}>
