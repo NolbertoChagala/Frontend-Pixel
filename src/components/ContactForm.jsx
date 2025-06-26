@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import { sendContactForm } from "../services/api";
 import "../styles/ContactForm.css";
 import ReCAPTCHA from "react-google-recaptcha";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 export default function ContactForm() {
   const [form, setForm] = useState({
@@ -13,9 +15,8 @@ export default function ContactForm() {
   });
 
   const [captchaToken, setCaptchaToken] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
-
   const recaptchaRef = useRef(null);
+  const MySwal = withReactContent(Swal);
 
   const isValidName = (name) => /^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]{3,}$/.test(name);
   const isValidPhone = (phone) => /^\d{10,15}$/.test(phone);
@@ -29,40 +30,53 @@ export default function ContactForm() {
     });
   };
 
+  const sanitizeInput = (str) => str.trim().replace(/\s+/g, " ");
+
   const handleCaptchaChange = (token) => {
     setCaptchaToken(token);
   };
 
+  const showError = (msg) =>
+    MySwal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: msg,
+    });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isValidName(form.Nombre_Completo)) {
-      alert("Nombre inválido. Solo letras y mínimo 3 caracteres.");
-      return;
-    }
 
-    if (!isValidPhone(form.Telefono)) {
-      alert("Teléfono inválido. Debe tener entre 10 y 15 dígitos.");
-      return;
-    }
-
-    if (!isValidMessage(form.Mensaje)) {
-      alert("El mensaje debe tener al menos 10 caracteres.");
-      return;
-    }
-
-    if (!captchaToken) {
-      alert("Por favor verifica que no eres un robot.");
-      return;
-    }
-
-    if (!form.aceptado) {
-      alert("Debes aceptar el aviso de privacidad.");
-      return;
-    }
+    if (!isValidName(form.Nombre_Completo))
+      return showError("Nombre inválido. Solo letras y mínimo 3 caracteres.");
+    if (!isValidPhone(form.Telefono))
+      return showError("Teléfono inválido. Debe tener entre 10 y 15 dígitos.");
+    if (!isValidMessage(form.Mensaje))
+      return showError("El mensaje debe tener al menos 10 caracteres.");
+    if (!captchaToken)
+      return showError("Por favor verifica que no eres un robot.");
+    if (!form.aceptado)
+      return showError("Debes aceptar el aviso de privacidad.");
 
     try {
-      await sendContactForm({ ...form, token: captchaToken });
-      setSubmitted(true);
+      await sendContactForm({
+        Nombre_Completo: sanitizeInput(form.Nombre_Completo),
+        Correo_Electronico: form.Correo_Electronico.trim(),
+        Telefono: form.Telefono.replace(/[^\d]/g, ""),
+        Mensaje: sanitizeInput(form.Mensaje),
+        token: captchaToken,
+      });
+
+      await MySwal.fire({
+        icon: "success",
+        title: "¡Mensaje enviado!",
+        text: "Gracias por contactarnos. Te responderemos pronto.",
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3500,
+        timerProgressBar: true,
+      });
+
       setForm({
         Nombre_Completo: "",
         Correo_Electronico: "",
@@ -72,16 +86,15 @@ export default function ContactForm() {
       });
       setCaptchaToken(null);
       recaptchaRef.current?.reset();
-      setTimeout(() => setSubmitted(false), 4000);
     } catch (error) {
       console.error("Error al enviar el formulario", error);
+      showError("Hubo un problema al enviar el mensaje. Intenta más tarde.");
     }
   };
 
   return (
     <section id="contact-section" className="contact-form-section">
       <h2>Contáctanos</h2>
-      {submitted && <p className="success">Mensaje enviado correctamente</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -130,11 +143,18 @@ export default function ContactForm() {
             onChange={handleChange}
             required
           />
-          <span style={{ color: "black" }}>He leído y acepto el </span>
-          <a href="Aviso" target="_blank" rel="noopener noreferrer">
-            Aviso de Privacidad
-          </a>
-          .
+
+          <span className="checkbox-text">
+            He leído y acepto el{" "}
+            <a
+              href="Aviso"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="aviso-link"
+            >
+              Aviso de Privacidad
+            </a>
+          </span>
         </label>
 
         <button type="submit">Enviar</button>
