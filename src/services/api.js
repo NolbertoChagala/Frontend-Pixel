@@ -1,7 +1,5 @@
-import axios from 'axios';
-
-const API_URL = 'http://localhost:3001/api';
+import { apiClient } from "./apiClient";
 
 export const sendContactForm = (data) => {
-  return axios.post(`${API_URL}/contact`, data);
+  return apiClient.post("/contact", data);
 };

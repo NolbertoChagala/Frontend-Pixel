@@ -4,6 +4,7 @@ import "../styles/ContactForm.css";
 import ReCAPTCHA from "react-google-recaptcha";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import emailjs from "emailjs-com";
 
 export default function ContactForm() {
   const [form, setForm] = useState({
@@ -58,6 +59,7 @@ export default function ContactForm() {
       return showError("Debes aceptar el aviso de privacidad.");
 
     try {
+      // GUARDAR EN LA BASE DE DATOS
       await sendContactForm({
         Nombre_Completo: sanitizeInput(form.Nombre_Completo),
         Correo_Electronico: form.Correo_Electronico.trim(),
@@ -66,6 +68,27 @@ export default function ContactForm() {
         token: captchaToken,
       });
 
+      // ENVIAR CORREO CON EMAILJS
+      await emailjs.send(
+        "service_5aofyoc",
+        "template_18ltk6b",
+        {
+          Nombre_Completo: sanitizeInput(form.Nombre_Completo),
+          Correo_Electronico: form.Correo_Electronico.trim(),
+          Telefono: form.Telefono.replace(/[^\d]/g, ""),
+          Mensaje: sanitizeInput(form.Mensaje),
+        },
+        "jXLYhFbE3VyWpKrFs"
+      );
+
+      console.log({
+        Nombre_Completo: sanitizeInput(form.Nombre_Completo),
+        Correo_Electronico: form.Correo_Electronico.trim(),
+        Telefono: form.Telefono.replace(/[^\d]/g, ""),
+        Mensaje: sanitizeInput(form.Mensaje),
+      });
+
+      // ÉXITO AL ENVIAR EL FORMULARIO
       await MySwal.fire({
         icon: "success",
         title: "¡Mensaje enviado!",
@@ -77,6 +100,7 @@ export default function ContactForm() {
         timerProgressBar: true,
       });
 
+      // REINICIO DEL FORMULARIO
       setForm({
         Nombre_Completo: "",
         Correo_Electronico: "",

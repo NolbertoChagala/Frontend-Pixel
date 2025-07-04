@@ -1,0 +1,81 @@
+/* Contenedor general */
+.dashboard-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+/* Título principal */
+.dashboard-container h1 {
+  font-size: 2rem;
+  color: #1a1a2e;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Sección */
+.dashboard-section {
+  margin-bottom: 3rem;
+}
+
+/* Título de sección */
+.dashboard-section h2 {
+  font-size: 1.4rem;
+  color: #ff4d4d;
+  margin-bottom: 1rem;
+}
+
+/* Tablas */
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Encabezado */
+.dashboard-table thead {
+  background-color: #1a1a2e;
+  color: #fff;
+}
+
+/* Celdas encabezado */
+.dashboard-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+/* Celdas */
+.dashboard-table td {
+  padding: 1rem;
+  border-top: 1px solid #eee;
+  vertical-align: top;
+}
+
+/* Filas alternadas */
+.dashboard-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Hover filas */
+.dashboard-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  .dashboard-table th,
+  .dashboard-table td {
+    padding: 0.75rem;
+    font-size: 0.95rem;
+  }
+}

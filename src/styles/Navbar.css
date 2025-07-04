@@ -166,3 +166,37 @@
     font-size: 1.5rem;
   }
 }
+
+/* Botón de cerrar sesión que parece enlace */
+.logout-link {
+  background: none;
+  border: none;
+  color: #eeeeee;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  transition: color 0.3s ease;
+  font-family: inherit;
+}
+
+.logout-link:hover {
+  color: #ff4d4d;
+}
+
+/* Subrayado animado igual que los links */
+.logout-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #ff4d4d;
+  transition: width 0.3s ease;
+}
+
+.logout-link:hover::after {
+  width: 100%;
+}
