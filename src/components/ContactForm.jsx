@@ -4,7 +4,7 @@ import "../styles/ContactForm.css";
 import ReCAPTCHA from "react-google-recaptcha";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import emailjs from "emailjs-com";
+import emailjs from "emailjs-browser";
 
 export default function ContactForm() {
   const [form, setForm] = useState({
