@@ -44,6 +44,7 @@ export default function ContactForm() {
       text: msg,
     });
 
+    //Distribución de funciones de validación
   const handleSubmit = async (e) => {
     e.preventDefault();
 
