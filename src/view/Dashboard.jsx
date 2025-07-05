@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchUsers, fetchLeads } from "../services/dashboardService";
+import { fetchUsers, fetchLeads, updateLeadStatus } from "../services/dashboardService";
 import "../styles/Dashboard.css";
 import DashboardNavbar from "../components/DashboardNavbar";
 
@@ -13,6 +13,7 @@ const Dashboard = () => {
   useEffect(() => {
     fetchUsers()
       .then((res) => {
+        console.log("Leads:", res.data);
         setUsers(res.data);
         setLoadingUsers(false);
       })
@@ -32,8 +33,10 @@ const Dashboard = () => {
       });
   }, []);
 
-  if (loadingUsers || loadingLeads) return <p style={{ textAlign: "center" }}>Cargando datos...</p>;
-  if (error) return <p style={{ textAlign: "center", color: "red" }}>{error}</p>;
+  if (loadingUsers || loadingLeads)
+    return <p style={{ textAlign: "center" }}>Cargando datos...</p>;
+  if (error)
+    return <p style={{ textAlign: "center", color: "red" }}>{error}</p>;
 
   return (
     <>
@@ -68,6 +71,7 @@ const Dashboard = () => {
                 <th>Email</th>
                 <th>Teléfono</th>
                 <th>Mensaje</th>
+                <th>Estado</th>
               </tr>
             </thead>
             <tbody>
@@ -77,6 +81,31 @@ const Dashboard = () => {
                   <td>{lead.Correo_Electronico}</td>
                   <td>{lead.Telefono}</td>
                   <td>{lead.Mensaje}</td>
+                  <td>{lead.status}</td>
+                  <td>
+                    <select
+                      value={lead.status}
+                      onChange={async (e) => {
+                        const newStatus = e.target.value;
+                        try {
+                          await updateLeadStatus(lead.id, newStatus);
+                          // Actualizamos el estado en el frontend sin recargar todo
+                          setLeads((prevLeads) =>
+                            prevLeads.map((l) =>
+                              l.id === lead.id ? { ...l, status: newStatus } : l
+                            )
+                          );
+                        } catch (err) {
+                          alert("Error al actualizar el estado");
+                          console.error(err);
+                        }
+                      }}
+                    >
+                      <option value="pendiente">Pendiente</option>
+                      <option value="en_proceso">En proceso</option>
+                      <option value="Atendido">Atendido</option>
+                    </select>
+                  </td>
                 </tr>
               ))}
             </tbody>
