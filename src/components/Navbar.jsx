@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importar para redirigir
+import { useNavigate } from "react-router-dom";
 import "../styles/Navbar.css";
 
 export default function Navbar() {
@@ -7,6 +7,8 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const token = localStorage.getItem("token");
 
   return (
     <nav className="navbar">
@@ -53,11 +55,25 @@ export default function Navbar() {
               Contacto
             </a>
           </li>
-          <li>
-            <a href="/login">
-              Iniciar Sesión
-            </a>
-          </li>
+          {token ? (
+            <li>
+              <a
+                href="/dashboard"
+                onClick={() => setIsOpen(false)}
+              >
+                Dashboard
+              </a>
+            </li>
+          ) : (
+            <li>
+              <a
+                href="/login"
+                onClick={() => setIsOpen(false)}
+              >
+                Iniciar Sesión
+              </a>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
