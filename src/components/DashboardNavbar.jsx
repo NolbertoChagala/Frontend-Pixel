@@ -12,10 +12,17 @@ const DashboardNavbar = () => {
 
   return (
     <nav className="dashboard-navbar">
-      <div className="dashboard-navbar__logo">
+      <a href="/" className="dashboard-navbar__logo" aria-label="Ir al inicio">
         🧩 CRM Dashboard
-      </div>
-      <button className="dashboard-navbar__logout" onClick={handleLogout}>
+      </a>
+      <a href="/" className="dashboard-navbar__logo" aria-label="Ir al inicio">
+        PixelStudio
+      </a>
+      <button
+        className="dashboard-navbar__logout"
+        onClick={handleLogout}
+        title="Cerrar sesión"
+      >
         Cerrar sesión
       </button>
     </nav>

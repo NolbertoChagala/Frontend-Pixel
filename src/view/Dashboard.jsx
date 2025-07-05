@@ -41,6 +41,7 @@ const Dashboard = () => {
   return (
     <>
       <DashboardNavbar />
+      
       <div className="dashboard-container">
         <h1>Dashboard CRM</h1>
         <section className="dashboard-section">
