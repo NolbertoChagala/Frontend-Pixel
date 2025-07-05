@@ -33,22 +33,6 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route 
-          path="/" 
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/aviso" 
-          element={
-            <ProtectedRoute>
-              <Aviso />
-            </ProtectedRoute>
-          } 
-        />
          <Route 
           path="/dashboard" 
           element={
@@ -59,6 +43,8 @@ function App() {
         />
 
         {/* RUTAS PÚBLICAS */}
+        <Route path="/" element={<Home />} />
+        <Route path="/aviso" element={<Aviso />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>

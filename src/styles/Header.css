@@ -14,7 +14,7 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Título del header */
+/* Título */
 .header-title {
   font-family: 'Montserrat', sans-serif;
   font-size: 3.5rem;
@@ -25,7 +25,7 @@
   animation: fadeInDown 1s ease-out;
 }
 
-/* Subtítulo del header */
+/* Subtítulo */
 .header-subtitle {
   font-family: 'Roboto', sans-serif;
   font-size: 1.5rem;
@@ -35,9 +35,10 @@
   opacity: 0.9;
   animation: fadeInUp 1s ease-out 0.3s;
   animation-fill-mode: both;
+  padding: 0 1rem;
 }
 
-/* Estilo para el texto resaltado */
+/* Texto resaltado */
 .highlight {
   color: #ff4d4d;
   font-weight: 500;
@@ -49,7 +50,7 @@
   color: #ff7878;
 }
 
-/* Línea decorativa animada */
+/* Línea decorativa */
 .underline {
   width: 100px;
   height: 4px;
@@ -92,7 +93,7 @@
   }
 }
 
-/* Fondo decorativo con partículas sutiles */
+/* Fondo decorativo */
 .header::before {
   content: '';
   position: absolute;
@@ -116,33 +117,48 @@
   }
 }
 
-/* Responsividad */
-@media (max-width: 768px) {
-  .header-title {
-    font-size: 2.5rem;
-  }
+/* --- RESPONSIVE BREAKPOINTS --- */
 
+/* Tablets y pantallas medianas */
+@media (max-width: 1024px) {
+  .header-title {
+    font-size: 3rem;
+  }
   .header-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     max-width: 90%;
   }
-
   .underline {
     width: 80px;
   }
 }
 
-@media (max-width: 480px) {
+/* Móviles grandes */
+@media (max-width: 768px) {
   .header-title {
-    font-size: 2rem;
+    font-size: 2.3rem;
   }
-
   .header-subtitle {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
+  .underline {
+    width: 70px;
+  }
+}
 
+/* Móviles pequeños */
+@media (max-width: 480px) {
   .header {
     min-height: 50vh;
     padding: 1.5rem 1rem;
+  }
+  .header-title {
+    font-size: 1.8rem;
+  }
+  .header-subtitle {
+    font-size: 1rem;
+  }
+  .underline {
+    width: 60px;
   }
 }

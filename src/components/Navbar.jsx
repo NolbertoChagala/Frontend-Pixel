@@ -8,15 +8,10 @@ export default function Navbar() {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
-
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <a href="#header" className="logo">
+        <a href="/#header" className="logo">
           Pixel Studio
         </a>
         <button
@@ -59,9 +54,9 @@ export default function Navbar() {
             </a>
           </li>
           <li>
-            <button className="logout-link" onClick={handleLogout}>
-              Cerrar sesión
-            </button>
+            <a href="/login">
+              Iniciar Sesión
+            </a>
           </li>
         </ul>
       </div>
