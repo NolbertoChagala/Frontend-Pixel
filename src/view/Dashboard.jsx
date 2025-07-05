@@ -81,7 +81,6 @@ const Dashboard = () => {
                   <td>{lead.Correo_Electronico}</td>
                   <td>{lead.Telefono}</td>
                   <td>{lead.Mensaje}</td>
-                  <td>{lead.status}</td>
                   <td>
                     <select
                       value={lead.status}
